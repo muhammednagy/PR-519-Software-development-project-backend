@@ -52,7 +52,7 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 		server.DB.Exec("PRAGMA foreign_keys = ON")
 	}
 
-	server.DB.Debug().AutoMigrate(&models.User{}, &models.Post{}) //database migration
+	server.DB.Debug().AutoMigrate(&models.User{}) //database migration
 }
 
 func (server *Server) Run(addr string) {
