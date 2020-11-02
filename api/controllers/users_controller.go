@@ -13,7 +13,14 @@ import (
 	"github.com/muhammednagy/PR-519-Software-development-project-backend/api/utils/formaterror"
 )
 
+func (server *Server) CreateUserOptions(ctx gearbox.Context) {
+	ctx.Set("Access-Control-Allow-Origin", "*")
+	ctx.Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	ctx.Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+}
+
 func (server *Server) CreateUser(ctx gearbox.Context) {
+	ctx.Set("Access-Control-Allow-Origin", "*")
 	user := models.User{}
 	err := ctx.ParseBody(&user)
 	if err != nil {
@@ -41,7 +48,14 @@ func (server *Server) CreateUser(ctx gearbox.Context) {
 
 
 
+func (server *Server) UpdateUserOptions(ctx gearbox.Context) {
+	ctx.Set("Access-Control-Allow-Origin", "*")
+	ctx.Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	ctx.Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+}
+
 func (server *Server) UpdateUser(ctx gearbox.Context) {
+	ctx.Set("Access-Control-Allow-Origin", "*")
 	uid, err := strconv.ParseUint(ctx.Query("id"), 10, 32)
 	if err != nil {
 		responses.ERROR(ctx, http.StatusBadRequest, err)
@@ -77,7 +91,10 @@ func (server *Server) UpdateUser(ctx gearbox.Context) {
 	responses.JSON(ctx, http.StatusOK, updatedUser)
 }
 
+
+
 func (server *Server) DeleteUser(ctx gearbox.Context) {
+	ctx.Set("Access-Control-Allow-Origin", "*")
 	user := models.User{}
 
 	uid, err := strconv.ParseUint(ctx.Query("id"), 10, 32)

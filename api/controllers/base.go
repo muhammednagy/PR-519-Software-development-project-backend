@@ -58,5 +58,16 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 func (server *Server) Run(addr string) {
 	gb := gearbox.New()
 	gb.Group("/api/v1", server.initializeRoutes(gb))
+
+	// create a logger middleware
+	logMiddleware := func(ctx gearbox.Context) {
+		log.Printf(ctx.Body())
+		log.Println(ctx.Context())
+
+		// Next is what allows the request to continue to the next
+		// middleware/handler
+		ctx.Next()
+	}
+	gb.Use(logMiddleware)
 	gb.Start(addr)
 }
