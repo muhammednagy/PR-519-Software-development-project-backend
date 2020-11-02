@@ -43,7 +43,8 @@ func (server *Server) CreateUser(ctx gearbox.Context) {
 		return
 	}
 	ctx.Set("Location", fmt.Sprintf("%s%s/%d", ctx.Context().Host(), ctx.Context().RequestURI, userCreated.ID))
-	responses.JSON(ctx, http.StatusCreated, userCreated)
+	token, err := auth.CreateToken(userCreated.ID)
+	responses.JSON(ctx, http.StatusCreated, token)
 }
 
 
