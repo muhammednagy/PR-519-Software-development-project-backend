@@ -22,6 +22,4 @@ func (server *Server) initializeRoutes(gb gearbox.Gearbox) []*gearbox.Route {
 		gb.Options("/users/{id}", middlewares.SetMiddlewareAuthentication, server.UpdateUserOptions),
 		gb.Delete("/users/{id}", middlewares.SetMiddlewareAuthentication, server.DeleteUser),
 	}
-
-	return nil
 }
