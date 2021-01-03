@@ -13,13 +13,10 @@ func (server *Server) initializeRoutes(gb gearbox.Gearbox) []*gearbox.Route {
 
 		// Login Route
 		gb.Post("/login",server.Login),
-		gb.Options("/login",server.LoginOptions),
 
 		//Users routes
 		gb.Post("/users", server.CreateUser),
-		gb.Options("/users", server.CreateUserOptions),
 		gb.Put("/users/{id}", middlewares.SetMiddlewareAuthentication, server.UpdateUser),
-		gb.Options("/users/{id}", middlewares.SetMiddlewareAuthentication, server.UpdateUserOptions),
 		gb.Delete("/users/{id}", middlewares.SetMiddlewareAuthentication, server.DeleteUser),
 	}
 }

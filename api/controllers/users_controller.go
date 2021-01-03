@@ -13,12 +13,6 @@ import (
 	"github.com/muhammednagy/PR-519-Software-development-project-backend/api/utils/formaterror"
 )
 
-func (server *Server) CreateUserOptions(ctx gearbox.Context) {
-	ctx.Set("Access-Control-Allow-Origin", "*")
-	ctx.Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-	ctx.Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-}
-
 func (server *Server) CreateUser(ctx gearbox.Context) {
 	ctx.Set("Access-Control-Allow-Origin", "*")
 	user := models.User{}
@@ -45,14 +39,6 @@ func (server *Server) CreateUser(ctx gearbox.Context) {
 		return
 	}
 	responses.JSON(ctx, http.StatusCreated, token)
-}
-
-
-
-func (server *Server) UpdateUserOptions(ctx gearbox.Context) {
-	ctx.Set("Access-Control-Allow-Origin", "*")
-	ctx.Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-	ctx.Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 }
 
 func (server *Server) UpdateUser(ctx gearbox.Context) {
