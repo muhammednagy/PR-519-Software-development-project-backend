@@ -13,7 +13,7 @@ import (
 )
 
 type Server struct {
-	DB     *gorm.DB
+	DB *gorm.DB
 }
 
 func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, DbName string) {
@@ -61,7 +61,7 @@ func (server *Server) Run(addr string) {
 
 	// create a logger middleware
 	logMiddleware := func(ctx gearbox.Context) {
-		log.Printf(ctx.Body())
+		log.Print(ctx.Body())
 		log.Println(ctx.Context())
 
 		// Next is what allows the request to continue to the next
