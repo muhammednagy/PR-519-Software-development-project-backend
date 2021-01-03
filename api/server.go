@@ -21,8 +21,7 @@ func init() {
 }
 
 func Run() {
-	var err error
-	err = godotenv.Load()
+	var err error = godotenv.Load()
 	if err != nil {
 		log.Fatalf("Error getting env, %v", err)
 	}
