@@ -39,7 +39,6 @@ func (server *Server) CreateUser(ctx gearbox.Context) {
 		responses.ERROR(ctx, http.StatusInternalServerError, formaterror.FormatError(err.Error()))
 		return
 	}
-	ctx.Set("Location", fmt.Sprintf("%s%s/%d", ctx.Context().Host(), ctx.Context().RequestURI, userCreated.ID))
 	token, err := auth.CreateToken(userCreated.ID)
 	if err != nil {
 		responses.ERROR(ctx, http.StatusInternalServerError, formaterror.FormatError(err.Error()))
@@ -71,10 +70,10 @@ func (server *Server) UpdateUser(ctx gearbox.Context) {
 	}
 	tokenID, err := auth.ExtractTokenID(ctx)
 	if err != nil {
-		responses.ERROR(ctx, http.StatusUnauthorized, errors.New("Unauthorized"))
+		responses.ERROR(ctx, http.StatusUnauthorized, errors.New("unauthorized"))
 		return
 	}
-	if tokenID != uint32(uid) {
+	if uint64(tokenID) != uid {
 		responses.ERROR(ctx, http.StatusUnauthorized, errors.New(http.StatusText(http.StatusUnauthorized)))
 		return
 	}
@@ -106,10 +105,10 @@ func (server *Server) DeleteUser(ctx gearbox.Context) {
 	}
 	tokenID, err := auth.ExtractTokenID(ctx)
 	if err != nil {
-		responses.ERROR(ctx, http.StatusUnauthorized, errors.New("Unauthorized"))
+		responses.ERROR(ctx, http.StatusUnauthorized, errors.New("unauthorized"))
 		return
 	}
-	if tokenID != 0 && tokenID != uint32(uid) {
+	if tokenID != 0 && uint64(tokenID) != uid {
 		responses.ERROR(ctx, http.StatusUnauthorized, errors.New(http.StatusText(http.StatusUnauthorized)))
 		return
 	}
