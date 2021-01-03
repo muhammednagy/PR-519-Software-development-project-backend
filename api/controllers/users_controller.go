@@ -36,14 +36,15 @@ func (server *Server) CreateUser(ctx gearbox.Context) {
 	userCreated, err := user.SaveUser(server.DB)
 
 	if err != nil {
-
-		formattedError := formaterror.FormatError(err.Error())
-
-		responses.ERROR(ctx, http.StatusInternalServerError, formattedError)
+		responses.ERROR(ctx, http.StatusInternalServerError, formaterror.FormatError(err.Error()))
 		return
 	}
 	ctx.Set("Location", fmt.Sprintf("%s%s/%d", ctx.Context().Host(), ctx.Context().RequestURI, userCreated.ID))
 	token, err := auth.CreateToken(userCreated.ID)
+	if err != nil {
+		responses.ERROR(ctx, http.StatusInternalServerError, formaterror.FormatError(err.Error()))
+		return
+	}
 	responses.JSON(ctx, http.StatusCreated, token)
 }
 
